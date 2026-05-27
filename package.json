@@ -1,0 +1,6 @@
+{
+  "name": "vik-trading-proxy",
+  "version": "1.0.0",
+  "description": "Proxy server for Vik's Catalyst Analyzer",
+  "private": true
+}
