@@ -1,11 +1,10 @@
 // Vercel Serverless Proxy for Anthropic API
-// Forwards requests from GitHub Pages to Anthropic API
 
 export default async function handler(req, res) {
   // Allow CORS from GitHub Pages
-  res.setHeader('Access-Control-Allow-Origin', 'https://lonewolf26-hash.github.io');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-api-key');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-api-key, anthropic-version');
 
   // Handle preflight
   if (req.method === 'OPTIONS') {
