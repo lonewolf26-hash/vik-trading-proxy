@@ -17,8 +17,14 @@ export default async function handler(req, res) {
 
   try {
     const apiKey = req.headers['x-api-key'];
-    if (!apiKey || !apiKey.startsWith('sk-ant-')) {
-      return res.status(401).json({ error: 'Invalid API key' });
+    if (!apiKey) {
+      return res.status(401).json({ error: 'Missing API key' });
+    }
+
+    // Parse body — handle both string and object
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch(e) {}
     }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -28,7 +34,7 @@ export default async function handler(req, res) {
         'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify(req.body),
+      body: JSON.stringify(body),
     });
 
     const data = await response.json();
